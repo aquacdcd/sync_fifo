@@ -58,6 +58,7 @@ initial begin
     $finish;
     end
 
+    
     initial begin
         $monitor("Time=%t | wr=%b data_in=%d | rd=%b data_out=%d | full=%b empty=%b",
         $time,wr_en,data_in,rd_en,data_out,full,empty);
