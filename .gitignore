@@ -1,0 +1,9 @@
+# VCS & Verdi generated files
+csrc/
+simv.daidir/
+verdiLog/
+*.log
+*.fsdb
+*.vpd
+simv
+ucli.key
