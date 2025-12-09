@@ -38,4 +38,18 @@ class scoreboard;
         end
         end
     endtask
+
+    function void report();
+        $display("--------------------------------------");
+        $display("       [SCOREBOARD REPORT]            ");
+        $display("--------------------------------------");
+        if (err_count == 0) begin
+            $display("        ALL CHECKS PASSED! ✅        ");
+        end else begin
+            $display("        TEST FAILED! ❌              ");
+            $display("        Total Errors: %0d            ", err_count);
+        end
+        $display("--------------------------------------");
+    endfunction
+
 endclass

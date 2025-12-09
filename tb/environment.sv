@@ -32,6 +32,7 @@ class environment;
     join_any
     wait(gen2drv_mbx.num()==0);
     #20
+    scb.report();
     $finish;
     endtask
 endclass
