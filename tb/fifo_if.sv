@@ -15,4 +15,16 @@ interface fifo_if(input logic clk, input logic rst_n);
         input full,empty,data_out,
         input clk,rst_n
     );
+
+    clocking drv_cb @(posedge clk);
+        default input #1step output #1;
+        input full,empty;
+        output wr_en,rd_en,data_in;
+    endclocking
+
+    clocking mon_cb @(posedge clk);
+        default input #1step output #1;
+        input wr_en,rd_en,data_in,data_out,full,empty;
+    endclocking
+
 endinterface//定义了一个接口，然后写了一个TEST的安全卫士

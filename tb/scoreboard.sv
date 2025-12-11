@@ -51,5 +51,4 @@ class scoreboard;
         end
         $display("--------------------------------------");
     endfunction
-
 endclass

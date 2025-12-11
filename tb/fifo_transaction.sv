@@ -4,7 +4,6 @@ class fifo_transaction;
     rand bit rd_en;
 
     constraint valid_ctrl {
-        !(wr_en && rd_en);
         wr_en dist { 1 := 6, 0 := 4 };
         rd_en dist { 1 := 4, 0 := 6 };
     }

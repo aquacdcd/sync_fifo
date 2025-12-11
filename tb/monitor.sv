@@ -10,24 +10,33 @@ class monitor;
     endfunction
 
     task main();
+        bit vaild_read=0;
         fifo_transaction tr;//和前面generator driver很像，都是为了这个操作这个包裹写这句话
 
         forever begin
-            @(posedge vif.clk)
-                if(vif.wr_en&~vif.full)begin
+            @(vif.mon_cb)
+                if(vif.mon_cb.wr_en&~vif.mon_cb.full)begin
                     tr=new();
-                    tr.data=vif.data_in;
-                    tr.wr_en=1;
+                    tr.data=vif.mon_cb.data_in;
+                    tr.wr_en=vif.mon_cb.wr_en;
                     tr.display("Monitor-write");
                     mbx.put(tr);
                 end
-                if(vif.rd_en&~vif.empty)begin
+                if(vaild_read)begin
                     tr=new();
-                    tr.data=vif.data_out;
+                    tr.data=vif.mon_cb.data_out;
                     tr.rd_en=1;
                     tr.display("Monitor-read");
                     mbx.put(tr);
                 end
+                if(vif.mon_cb.rd_en&&~vif.mon_cb.empty)begin
+                    vaild_read=1;
+                end
+                else begin
+                    vaild_read=0;
+                end
+                
             end
+
     endtask
 endclass

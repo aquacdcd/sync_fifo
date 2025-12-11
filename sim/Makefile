@@ -9,7 +9,7 @@ RTL_FILES  = $(RTL_DIR)/sync_fifo.v
 PKG_FILES  = $(TB_DIR)/fifo_pkg.sv
 INTF_FILES = $(TB_DIR)/fifo_if.sv
 TOP_FILES  = $(TB_DIR)/tb_top.sv $(TB_DIR)/test.sv
-
+TB_FILES = $(wildcard $(TB_DIR)/*.sv)
 # 3. 输出定义 (因为就在 sim 目录下，直接写文件名即可)
 OUTPUT     = simv
 
@@ -18,7 +18,7 @@ OUTPUT     = simv
 # -----------------------------------------------------------
 all: $(OUTPUT)
 
-$(OUTPUT): $(RTL_FILES) $(PKG_FILES) $(INTF_FILES) $(TOP_FILES)
+$(OUTPUT): $(RTL_FILES) $(TB_FILES)
 	# 关键参数解释：
 	# -o $(OUTPUT): 生成的可执行文件叫 simv
 	# +incdir+$(TB_DIR): 告诉 VCS 去 ../tb 目录找 `include 的 class 文件

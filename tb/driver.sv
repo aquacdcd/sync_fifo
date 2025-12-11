@@ -18,13 +18,13 @@ class driver;
             mbx.get(tr);
             tr.display("Driver");
 
-            @(posedge vif.clk);
-            vif.wr_en<=tr.wr_en;
-            vif.rd_en<=tr.rd_en;
-            vif.data_in<=tr.data;
-            @(posedge vif.clk);
-            vif.wr_en<=0;
-            vif.rd_en<=0;
+            @(vif.drv_cb);
+            vif.drv_cb.wr_en<=tr.wr_en;
+            vif.drv_cb.rd_en<=tr.rd_en;
+            vif.drv_cb.data_in<=tr.data;
+            @(vif.drv_cb);
+            vif.drv_cb.wr_en<=0;
+            vif.drv_cb.rd_en<=0;
             
         end
 
