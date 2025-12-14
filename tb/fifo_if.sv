@@ -6,10 +6,18 @@ interface fifo_if(input logic clk, input logic rst_n);
     logic full;
     logic empty;
     
-    property p_no_write_on_full;
+    property p_full_no_wp_change;
         @(posedge clk)disable iff(!rst_n)
-        (full) |-> !wr_en;
+        (full&&wr_en) |-> ##1 $stable(tb_top.dut.wp);
     endproperty
+    assert property(p_full_no_wp_change)
+        else $error("Full flag is set but write pointer changed!");
+    property p_empty_no_rp_change;
+        @(posedge clk)disable iff(!rst_n)
+        (empty&&rd_en) |-> ##1 $stable(tb_top.dut.rp);
+    endproperty
+    assert property(p_empty_no_rp_change)
+        else $error("Empty flag is set but read pointer changed!");
     modport TEST(
         output wr_en,rd_en,data_in,
         input full,empty,data_out,

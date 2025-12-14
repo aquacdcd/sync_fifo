@@ -19,7 +19,12 @@ class driver;
             tr.display("Driver");
 
             @(vif.drv_cb);
+            if(~vif.drv_cb.full)begin
             vif.drv_cb.wr_en<=tr.wr_en;
+            end 
+            else begin
+                vif.drv_cb.wr_en<=0;
+            end
             vif.drv_cb.rd_en<=tr.rd_en;
             vif.drv_cb.data_in<=tr.data;
             @(vif.drv_cb);
