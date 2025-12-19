@@ -1,9 +1,21 @@
-# VCS & Verdi generated files
-csrc/
+# --- VCS 仿真产生的大文件和编译目录 ---
+simv
 simv.daidir/
-verdiLog/
-*.log
+csrc/
+*.o
+
+# --- 波形数据 (体积太大，不传，除非特别小) ---
 *.fsdb
 *.vpd
-simv
+*.vcd
+
+# --- Verdi 产生的日志和临时配置 ---
+verdiLog/
 ucli.key
+*.log
+novas.rc
+novas.conf
+
+# --- 覆盖率报告 ---
+urgReport/
+*.vdb

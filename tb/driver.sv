@@ -10,9 +10,10 @@ class driver;
 
     task main();
         fifo_transaction tr;
-        vif.wr_en=0;
-        vif.rd_en=0;
-        vif.data_in=0;
+        @(negedge vif.rst_n)
+        vif.wr_en<=0;
+        vif.rd_en<=0;
+        vif.data_in<=0;
         @(posedge vif.rst_n);
         forever begin
             mbx.get(tr);
@@ -25,7 +26,12 @@ class driver;
             else begin
                 vif.drv_cb.wr_en<=0;
             end
+            if(~vif.drv_cb.empty)begin
             vif.drv_cb.rd_en<=tr.rd_en;
+            end
+            else begin
+                vif.drv_cb.rd_en<=0;
+            end
             vif.drv_cb.data_in<=tr.data;
             @(vif.drv_cb);
             vif.drv_cb.wr_en<=0;
